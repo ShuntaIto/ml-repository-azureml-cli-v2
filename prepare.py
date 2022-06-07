@@ -3,6 +3,8 @@ from datetime import datetime
 
 import pandas as pd
 from azureml.core import Dataset, Datastore, Environment, Workspace
+from azureml.core.compute import AmlCompute, ComputeTarget
+from azureml.core.compute_target import ComputeTargetException
 from azureml.opendatasets import NycTlcGreen
 from dateutil.relativedelta import relativedelta
 
@@ -67,6 +69,19 @@ def register_dataset(ws: Workspace) -> None:
     df.head(5)
 
 
+def create_compute_cluster(ws: Workspace) -> None:
+    cpu_cluster_name = "cpu-cluster"
+
+    try:
+        cpu_cluster = ComputeTarget(workspace=ws, name=cpu_cluster_name)
+        print("Found existing cluster, use it.")
+    except ComputeTargetException:
+        compute_config = AmlCompute.provisioning_configuration(vm_size="STANDARD_D2_V2", max_nodes=8)
+        cpu_cluster = ComputeTarget.create(ws, cpu_cluster_name, compute_config)
+
+    cpu_cluster.wait_for_completion(show_output=False)
+
+
 def main() -> None:
     subscription_id = "902f236f-44df-463a-a5cb-1516ab2a9cd2"
     resource_group = "shuit-open-ml-v2"
@@ -79,8 +94,10 @@ def main() -> None:
         resource_group=resource_group,
     )
 
-    create_environment(ws)
+    # Inline Environment によって生成、Environment を使い回す場合以下使用
+    # create_environment(ws)
     register_dataset(ws)
+    create_compute_cluster(ws)
 
 
 if __name__ == "__main__":
