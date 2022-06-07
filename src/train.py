@@ -102,7 +102,9 @@ def train_lgb_model(args: GetArgsOutput, datasets: LoadDatasetOutput) -> lgb.Boo
 
     # 学習
     gbm = lgb.train(params, train_dataset, num_boost_round=50, valid_sets=eval_dataset, early_stopping_rounds=10)
-    mlflow.log_metric("best" + params["metric"], gbm.best_score["valid_0"]["rmse"])
+
+    target_metric = "best_" + str(params["metric"])
+    mlflow.log_metric(target_metric, gbm.best_score["valid_0"]["rmse"])
 
     return gbm
 

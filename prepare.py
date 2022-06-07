@@ -87,7 +87,6 @@ def main() -> None:
     resource_group = "shuit-open-ml-v2"
     workspace_name = "shuit-open-ml-v2-workspace"
 
-    # 指定した Azure ML Workspace と紐づく Workspace インスタンスを作成
     ws = Workspace(
         workspace_name=workspace_name,
         subscription_id=subscription_id,
