@@ -5,13 +5,15 @@ trial:
   command: >-
     python train.py 
     --input_dataset_name ${{inputs.dataset_name}}
-    --boosting_type ${{inputs.dataset_name}}
-    --metric ${{inputs.dataset_name}}
+    --boosting_type ${{inputs.boosting_type}}
+    --metric ${{inputs.metric}}
     --num_iteration ${{inputs.num_iteration}}
     --learning_rate ${{search_space.lr}}
     --num_leaves ${{search_space.num_leaves}}
     --min_data_in_leaf ${{search_space.min_data_in_leaf}}
-  environment: azureml:lightgbm-python-env:1
+  environment:
+    image: mcr.microsoft.com/azureml/openmpi4.1.0-ubuntu20.04:20220504.v1
+    conda_file: ../environment.yml
 
 inputs:
   dataset_name: nyc_taxi_dataset
