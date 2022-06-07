@@ -11,8 +11,9 @@ dependencies:
   - mlflow=1.26.1
   - pip:
       - azureml-core==1.42.0
+      - azureml-mlflow
       - flake8==4.0.1
       - isort==5.10.1
       - black==22.3.0
-platforms:
-  - linux-64
+      - azureml-opendatasets
+      

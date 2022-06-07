@@ -1,47 +1,51 @@
 $schema: https://azuremlschemas.azureedge.net/latest/sweepJob.schema.json
 type: sweep
 trial:
-  code: src
+  code: ../src
   command: >-
     python train.py 
-    --iris-csv ${{inputs.iris_csv}}
-    --C ${{search_space.C}}
-    --kernel ${{search_space.kernel}}
-    --coef0 ${{search_space.coef0}}
+    --input_dataset_name ${{inputs.dataset_name}}
+    --boosting_type ${{inputs.dataset_name}}
+    --metric ${{inputs.dataset_name}}
+    --num_iteration ${{inputs.num_iteration}}
+    --learning_rate ${{search_space.lr}}
+    --num_leaves ${{search_space.num_leaves}}
+    --min_data_in_leaf ${{search_space.min_data_in_leaf}}
+  environment: azureml:lightgbm-python-env:1
 
-    --input-data 
-    --boosting_type "gbdt"
-    --metric "rmse"
-    --learning_rate", type=float, default=0.1)
-    --num_leaves", type=int, default=10)
-    --min_data_in_leaf", type=int, default=1)
-    --num_iteration", type=int, default=100)
-  environment: azureml:AzureML-sklearn-0.24-ubuntu18.04-py37-cpu@latest
 inputs:
-  taxi_datasets:
-    type: uri_file
-    path: wasbs://datasets@azuremlexamples.blob.core.windows.net/iris.csv
+  dataset_name: nyc_taxi_dataset
+  boosting_type: gbdt
+  metric: rmse
+  num_iteration: 300
+
 compute: azureml:cpu-cluster
-sampling_algorithm: random
+
+sampling_algorithm: bayesian
 search_space:
-  C:
+  lr:
     type: uniform
-    min_value: 0.5
-    max_value: 0.9
-  kernel:
-    type: choice
-    values: ["rbf", "linear", "poly"]
-  coef0:
+    min_value: 0.001
+    max_value: 0.5
+  num_leaves:
     type: uniform
-    min_value: 0.1
-    max_value: 1
+    min_value: 10
+    max_value: 200
+  min_data_in_leaf:
+    type: uniform
+    min_value: 1
+    max_value: 100
+
 objective:
   goal: minimize
-  primary_metric: training_f1_score
+  primary_metric: best_rmse
+
 limits:
-  max_total_trials: 20
-  max_concurrent_trials: 10
+  max_total_trials: 100
+  max_concurrent_trials: 8
   timeout: 7200
-display_name: sklearn-iris-sweep-example
-experiment_name: sklearn-iris-sweep-example
-description: Sweep hyperparemeters for training a scikit-learn SVM on the Iris dataset.
+
+experiment_name: job_nyc_taxi_regression_cli_v2_parameter_tuning
+description: Hyper-parameter tuning job viw Azure ML CLI v2
+
+# https://docs.microsoft.com/en-us/azure/machine-learning/reference-yaml-job-sweep
