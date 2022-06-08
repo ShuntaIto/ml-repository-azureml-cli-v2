@@ -19,6 +19,10 @@ prepare.py script create a compute cluster, a dataset for regression and an envi
 az ml job create -f ./job/search_hyperparameter.yml -g <resource_group> -w <ml_workspace>
 ```
 
+## Continuous Training
+
+### required
+
 # ref
 
 https://docs.microsoft.com/en-us/azure/developer/github/connect-from-azure?tabs=azure-portal%2Clinux
