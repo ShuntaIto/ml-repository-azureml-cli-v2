@@ -12,6 +12,8 @@ jobs:
   job-deploy:
     runs-on: ubuntu-latest
     steps:
+    - name: Checkout
+      uses: actions/checkout@v3
     - name: az CLI login
       uses: azure/login@v1
       with:
