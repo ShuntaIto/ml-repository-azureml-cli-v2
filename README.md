@@ -7,6 +7,29 @@
 
 ## Preparation
 
+### Create conda environment
+
+```bash
+conda env create -f environment.yml
+conda activate env-ml-reposiotry-azureml-cli-v2
+```
+
+### pre-commit
+
+To maintain clean code, you should use pre-commit.
+
+```bash
+pre-commit install
+```
+
+### Create resources to execute job
+
+Set below variables for your environment.
+
+- subscription_id = "subscription_id"
+- resource_group = "resource_group_name"
+- workspace_name = "ml_workspace_name"
+
 ```bash
 python prepare.py
 ```

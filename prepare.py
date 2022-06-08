@@ -83,9 +83,9 @@ def create_compute_cluster(ws: Workspace) -> None:
 
 
 def main() -> None:
-    subscription_id = "902f236f-44df-463a-a5cb-1516ab2a9cd2"
-    resource_group = "shuit-open-ml-v2"
-    workspace_name = "shuit-open-ml-v2-workspace"
+    subscription_id = "subscription_id"
+    resource_group = "resource_group_name"
+    workspace_name = "ml_workspace_name"
 
     ws = Workspace(
         workspace_name=workspace_name,
