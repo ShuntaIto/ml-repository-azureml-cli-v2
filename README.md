@@ -18,8 +18,6 @@ conda activate env-ml-reposiotry-azureml-cli-v2
 
 ### pre-commit
 
-To maintain clean code, you should use pre-commit.
-
 ```bash
 pre-commit install
 ```
@@ -58,7 +56,19 @@ az ml job create -f ./job/search_hyperparameter.yml -g <resource_group> -w <ml_w
 
 https://docs.microsoft.com/en-us/azure/developer/github/connect-from-azure?tabs=azure-portal%2Clinux
 
-# Reference
+## Code quality
+
+To maintain code quality, below libraries are used in this repository.
+
+- flake8 : lint based on PEP8
+- black : auto-format based on PEP8 (flake8)
+- isort : auto-sort import
+- mypy : check type
+- pre-commit : check code before commit
+
+Code quality is important for team development.
+
+## Reference
 
 https://docs.microsoft.com/en-us/azure/machine-learning/how-to-train-cli#sweep-hyperparameters
 https://docs.microsoft.com/en-us/azure/machine-learning/how-to-create-register-data-assets?tabs=Python-SDK#uris
