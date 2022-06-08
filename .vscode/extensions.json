@@ -1,0 +1,9 @@
+{
+    "recommendations": [
+        "streetsidesoftware.code-spell-checker",
+        "docsmsft.docs-yaml",
+        "ms-python.vscode-pylance",
+        "ms-python.python",
+        "KevinRose.vsc-python-indent"
+    ]
+}
