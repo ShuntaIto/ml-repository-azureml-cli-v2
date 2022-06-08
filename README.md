@@ -1,6 +1,6 @@
 # ml-repository-azureml-cli-v2
 
-Sample repository for MLOps (especially Continuous Deployment or Training).
+Sample repository for MLOps (especially Continuous Deployment or Training) with Azure Machine Learning.
 
 ## Dependencies
 
