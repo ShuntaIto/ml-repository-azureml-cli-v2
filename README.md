@@ -1,5 +1,7 @@
 # ml-repository-azureml-cli-v2
 
+Sample repository for MLOps (especially Continuous Deployment or Training).
+
 ## Dependencies
 
 - Python >= 3.8
